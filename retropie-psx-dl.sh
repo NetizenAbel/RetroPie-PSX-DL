@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# [SCRIPT_NAME] (e.g.: script_template.sh)
+
+# retropie-psx-dl
 #
-# [SCRIPT_TITLE] (e.g.: RetroPie Shell Script Boilerplate)
-# [SCRIPT_DESCRIPTION] (e.g. A template for building shell scripts for RetroPie.)
-#
-# Author: [AUTHOR] (e.g. hiulit)
-# Repository: [REPO_URL] (e.g. https://github.com/hiulit/RetroPie-Shell-Script-Boilerplate)
+# RetroPie Shell Script to Download Roms
+
+# Author: kashaiahyah85
 # License: [LICENSE] [LICENSE_URL] (e.g. MIT https://github.com/hiulit/RetroPie-Shell-Script-Boilerplate/blob/master/LICENSE)
 #
 # Requirements:
@@ -42,7 +41,7 @@ readonly SCRIPT_DESCRIPTION="Find and download roms."
 readonly DEPENDENCIES=("dialog" "wget")
 readonly ROMS_DIR="$RP_DIR/roms/$PLATFORM"
 readonly GIT_REPO_URL="https://github.com/kashaiahyah85/RetroPie-PSX-DL.git"
-#readonly GIT_SCRIPT_URL="$GIT_REPO_URL/[path/to/script].sh"
+readonly GIT_SCRIPT_URL="$GIT_REPO_URL/blob/master/retropie-psx-dl.sh"
 
 # dialog functions ##########################################################
 
