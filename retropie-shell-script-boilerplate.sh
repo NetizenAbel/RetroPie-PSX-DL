@@ -29,50 +29,24 @@ home="$(eval echo ~$user)"
 readonly RP_DIR="$home/RetroPie"
 readonly RP_CONFIG_DIR="/opt/retropie/configs"
 
-readonly SCRIPT_VERSION="0.0.0" # Use Semantinc Versioning https://semver.org/
+readonly SCRIPT_VERSION="0.1.0" # Use Semantinc Versioning https://semver.org/
 readonly SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
 readonly SCRIPT_NAME="$(basename "$0")"
 readonly SCRIPT_FULL="$SCRIPT_DIR/$SCRIPT_NAME"
-#readonly SCRIPT_CFG="$SCRIPT_DIR/[CONFIG_FILE]" # Uncomment if you want/need to use a config file.
-readonly SCRIPT_TITLE="[SCRIPT_TITLE]"
-readonly SCRIPT_DESCRIPTION="[SCRIPT_DESCRIPTION]"
+readonly SCRIPT_CFG="$SCRIPT_DIR/config"
+readonly SCRIPT_TITLE="Rom Downloader"
+readonly SCRIPT_DESCRIPTION="Find and download roms."
 #readonly SCRIPTMODULE_DIR="/opt/retropie/supplementary/[SCRIPTMODULE_NAME]" # Uncomment if you want/need to use a scriptmoodule.
 
 # Other variables that can be useful.
-#readonly DEPENDENCIES=("[PACKAGE_1]" "[PACKAGE_2]" "[PACKAGE_N]")
-#readonly ROMS_DIR="$RP_DIR/roms"
-#readonly ES_THEMES_DIR="/etc/emulationstation/themes"
-#readonly RCLOCAL="/etc/rc.local"
-#readonly GIT_REPO_URL="[REPO_URL]"
-#readonly GIT_SCRIPT_URL="[REPO_URL]/[path/to/script].sh
-
-
-# Variables ##################################################################
-
-# Add your own variables here.
-
+readonly DEPENDENCIES=("dialog" "wget")
+readonly ROMS_DIR="$RP_DIR/roms/$PLATFORM"
+readonly GIT_REPO_URL="https://github.com/kashaiahyah85/RetroPie-PSX-DL.git"
+#readonly GIT_SCRIPT_URL="$GIT_REPO_URL/[path/to/script].sh"
 
 # dialog functions ##########################################################
-# If you want to provide dialog boxes similar to those used on retropie_setup
-# you can use the functions below.
-# See the examples of usage on right above functions declarations.
 
-# adapt it as you wish
 BACKTITLE="$SCRIPT_DESCRIPTION"
-
-# dialogMenu example of usage:
-#options=( tag1 option1 tag2 option2 N optionN )
-#dialogMenu "Text describing the options" "${options[@]}"
-function dialogMenu() {
-    local text="$1"
-    shift
-    dialog --no-mouse \
-        --backtitle "$BACKTITLE" \
-        --cancel-label "Back" \
-        --ok-label "OK" \
-        --menu "$text\n\nChoose an option." 17 75 10 "$@" \
-        2>&1 > /dev/tty
-}
 
 # dialogMenuHelp example of usage:
 #options=(1 option1 "Help message 1" 2 option2 "Help message 2" N optionN "Help message N")
@@ -112,13 +86,8 @@ function dialogInfo {
 
 # Functions ##################################################################
 
-function is_retropie() {
-    [[ -d "$RP_DIR" && -d "$home/.emulationstation" && -d "/opt/retropie" ]]
-}
-
-
-function is_sudo() {
-    [[ "$(id -u)" -eq 0 ]]
+function no_sudo() {
+    [[ "$(id -u)" -eq 1 ]]
 }
 
 
@@ -253,17 +222,10 @@ function get_options() {
 }
 
 function main() {
-    # If you need to check if sudo is used, uncomment the code below.
-    # Remember to add 'sudo' in 'usage' and 'help'.
-    # if ! is_sudo; then
-    #     echo "ERROR: Script must be run under sudo."
-    #     usage
-    #     exit 1
-    # fi
 
-    if ! is_retropie; then
-        echo "ERROR: RetroPie is not installed. Aborting ..." >&2
-        exit 1
+    if ! no_sudo; then
+      echo "ERROR: Script must not be run under sudo."
+      exit 1
     fi
 
     check_dependencies
