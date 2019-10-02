@@ -1,4 +1,6 @@
-# [SCRIPT_TITLE] (e.g. RetroPie Shell Script Boilerplate)
+# RetroPie PSX Downloader
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0347706482f147929420240e7d6e4ff2)](https://www.codacy.com/manual/kashaiahyah85/RetroPie-PSX-DL?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kashaiahyah85/RetroPie-PSX-DL&amp;utm_campaign=Badge_Grade)
 
 [SCRIPT_DESCRIPTION] (e.g. A template for building shell scripts for RetroPie.)
 
